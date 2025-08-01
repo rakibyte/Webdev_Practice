@@ -5,6 +5,6 @@ function callback(){
     ctr++;
 }
 
-setInterval(callback, 1000);
+setInterval(callback, 12000);
 
 

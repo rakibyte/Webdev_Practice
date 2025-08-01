@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+</head>
+<body>
+    <input type="text">
+    <button onclick="addTodo()">Add todo</button>
+</body>
+
+<script>
+    let ctr = 0; // fix: define the counter variable
+
+    function deleteTodo(id) {
+        console.log("Delete button clicked for id:", id);
+        const el = document.getElementById(id);
+        if (el) el.remove();
+    }
+
+    function addTodo() {
+        const inputEl = document.querySelector("input");
+        const value = inputEl.value;
+
+        const newDiv = document.createElement("div");
+        newDiv.setAttribute("id", ctr); // use current ctr value as ID
+
+        newDiv.innerHTML = "<div>" + value + "</div><button onclick='deleteTodo(" + ctr + ")'>Delete</button>";
+
+        document.querySelector("body").appendChild(newDiv);
+        ctr++; // increment after using it
+    }
+</script>
+</html>
+
