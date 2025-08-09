@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Navigation Variations</title>
+    <style>
+        /* CSS Custom Properties for consistent theming */
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --background-dark: #1a1a1a;
+            --background-light: #ffffff;
+            --text-light: #ffffff;
+            --text-dark: #1f2937;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            padding: 20px;
+        }
+
+        /* Container styles */
+        .nav-container {
+            margin-bottom: 60px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Common navigation styles */
+        nav ul {
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+            display: block;
+            padding: 12px 20px;
+            border-radius: 6px;
+        }
+
+        nav button {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        nav button:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Variation 1: Horizontal with underline effect */
+        .nav-1 {
+            background-color: var(--background-light);
+            padding: 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-1 ul {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-1 li {
+            position: relative;
+        }
+
+        .nav-1 a {
+            color: var(--text-dark);
+            position: relative;
+            padding: 20px 16px;
+        }
+
+        .nav-1 a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-1 a:hover::after,
+        .nav-1 a:focus::after {
+            width: 100%;
+        }
+
+        .nav-1 a:hover,
+        .nav-1 a:focus {
+            color: var(--primary-color);
+            background-color: transparent;
+        }
+
+        /* Variation 2: Vertical with hover effect */
+        .nav-2 {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 250px;
+        }
+
+        .nav-2 ul {
+            margin-bottom: 20px;
+        }
+
+        .nav-2 li {
+            margin-bottom: 8px;
+        }
+
+        .nav-2 a {
+            color: var(--text-light);
+            border-left: 3px solid transparent;
+            padding-left: 16px;
+        }
+
+        .nav-2 a:hover,
+        .nav-2 a:focus {
+            background-color: rgba(37, 99, 235, 0.2);
+            border-left-color: var(--primary-color);
+            transform: translateX(8px);
+        }
+
+        /* Variation 3: Horizontal with dropdown */
+        .nav-3 {
+            background-color: var(--background-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .nav-3 > ul {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-3 > ul > li {
+            position: relative;
+        }
+
+        .nav-3 a {
+            color: var(--text-dark);
+            padding: 20px 16px;
+        }
+
+        .nav-3 a:hover,
+        .nav-3 a:focus {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Dropdown styles */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--background-light);
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 6px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .has-dropdown:hover .dropdown,
+        .has-dropdown:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown li {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown a {
+            padding: 12px 20px;
+            color: var(--text-dark);
+            border-radius: 0;
+        }
+
+        .dropdown a:hover,
+        .dropdown a:focus {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        /* Dropdown indicator */
+        .has-dropdown > a::after {
+            content: '▼';
+            font-size: 10px;
+            margin-left: 8px;
+            transition: var(--transition);
+        }
+
+        .has-dropdown:hover > a::after {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 20px;
+                margin-bottom: 40px;
+            }
+
+            .nav-1 ul,
+            .nav-3 > ul {
+                flex-direction: column;
+                gap: 10px;
+                padding: 20px;
+            }
+
+            .nav-1 a,
+            .nav-3 a {
+                text-align: center;
+                padding: 15px;
+            }
+
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background-color: rgba(37, 99, 235, 0.1);
+                margin-top: 10px;
+            }
+
+            .has-dropdown > a::after {
+                display: none;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        nav a:focus,
+        nav button:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-container {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Improved button styles */
+        .login-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 style="text-align: center; margin-bottom: 40px; color: var(--primary-color); font-size: 2.5rem;">Enhanced Navigation Variations</h1>
+    </header>
+
+    <main>
+        <section class="nav-container" id="nav-variation-1">
+            <h2>Variation 1: Horizontal with Underline Effect</h2>
+            <nav class="nav-1" role="navigation" aria-label="Main navigation">
+                <ul>
+                    <li><a href="#home" aria-current="page">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><button type="button" aria-label="Login to your account">Login</button></li>
+                </ul>
+            </nav>
+        </section>
+
+        <section class="nav-container" id="nav-variation-2">
+            <h2>Variation 2: Vertical with Hover Effect</h2>
+            <nav class="nav-2" role="navigation" aria-label="Sidebar navigation">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button type="button" class="login-button" aria-label="Login to your account">Login</button>
+            </nav>
+        </section>
+
+        <section class="nav-container" id="nav-variation-3">
+            <h2>Variation 3: Horizontal with Dropdown</h2>
+            <nav class="nav-3" role="navigation" aria-label="Main navigation with dropdown">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li class="has-dropdown">
+                        <a href="#about" aria-haspopup="true" aria-expanded="false">About</a>
+                        <ul class="dropdown" role="menu">
+                            <li role="none"><a href="#story" role="menuitem">Our Story</a></li>
+                            <li role="none"><a href="#team" role="menuitem">Team</a></li>
+                            <li role="none"><a href="#mission" role="menuitem">Mission</a></li>
+                            <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#products" aria-haspopup="true" aria-expanded="false">Products</a>
+                        <ul class="dropdown" role="menu">
+                            <li role="none"><a href="#web-apps" role="menuitem">Web Applications</a></li>
+                            <li role="none"><a href="#mobile-apps" role="menuitem">Mobile Apps</a></li>
+                            <li role="none"><a href="#consulting" role="menuitem">Consulting</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#services">Services</a></li>
+                    <li><button type="button" class="login-button" aria-label="Login to your account">Login</button></li>
+                </ul>
+            </nav>
+        </section>
+    </main>
+
+    <script>
+        // Enhanced accessibility and interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle dropdown keyboard navigation
+            const dropdownTriggers = document.querySelectorAll('.has-dropdown > a');
+            
+            dropdownTriggers.forEach(trigger => {
+                trigger.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const dropdown = this.nextElementSibling;
+                        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                        
+                        this.setAttribute('aria-expanded', !isExpanded);
+                        dropdown.style.opacity = isExpanded ? '0' : '1';
+                        dropdown.style.visibility = isExpanded ? 'hidden' : 'visible';
+                        dropdown.style.transform = isExpanded ? 'translateY(-10px)' : 'translateY(0)';
+                    }
+                });
+            });
+
+            // Handle escape key to close dropdowns
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    dropdownTriggers.forEach(trigger => {
+                        trigger.setAttribute('aria-expanded', 'false');
+                        const dropdown = trigger.nextElementSibling;
+                        dropdown.style.opacity = '0';
+                        dropdown.style.visibility = 'hidden';
+                        dropdown.style.transform = 'translateY(-10px)';
+                    });
+                }
+            });
+
+            // Add click handlers for buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Add ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.6);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+                    
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = (rect.width / 2 - size / 2) + 'px';
+                    ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+                    
+                    // Simulate login action
+                    if (this.textContent.includes('Login')) {
+                        alert('Login functionality would be implemented here!');
+                    }
+                });
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
